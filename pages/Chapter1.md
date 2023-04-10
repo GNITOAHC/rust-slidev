@@ -74,6 +74,35 @@ my-app/
 ```
 
 ---
+hideInToc: true
+---
+
+### Creating project (cont.)
+
+Files inside initial project.
+
+```toml
+# my-app/Cargo.toml
+[package]
+name = "project"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+```
+<br />
+
+```rust
+// my-app/src/main.rs
+fn main() {
+    println!("Hello, world!");
+}
+```
+
+
+---
 
 ### Building project & Running project
 
