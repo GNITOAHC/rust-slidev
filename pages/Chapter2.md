@@ -101,7 +101,7 @@ but there are a few differences between constants and variables.
 
 We can shadow a variable by repeating the use of `let`. 
 
-```rust {all|1|3,5,8}
+```rust {all|2|2,4,7}
 fn main() {
     let x = 5;
 
@@ -188,14 +188,14 @@ fn main() {
 
 #### Integer Types
 
-| Length | Signed | Unsigned |
-| - | - | - |
-|8-bit|i8|u8|
-|16-bit|i16|u16|
-|32-bit|i32|u32|
-|64-bit|i64|u64|
-|128-bit|i128|u128|
-|arch|isize|usize|
+| Length  | Signed | Unsigned |
+| ------- | ------ | -------- |
+| 8-bit   | i8     | u8       |
+| 16-bit  | i16    | u16      |
+| 32-bit  | i32    | u32      |
+| 64-bit  | i64    | u64      |
+| 128-bit | i128   | u128     |
+| arch    | isize  | usize    |
 
 ---
 
@@ -323,9 +323,145 @@ fn main() {
 
 ## 2.3 Functions
 
+<Toc listClass="toc" minDepth="3" mode="onlyCurrentTree" />
+
+---
+
+### Main function
+
+`main` function: Entry point of a program.
+
+```rust
+fn main() {
+    println!("Hello, world!");
+}
+```
+
+<br />
+
+> An entry point is the place in a program where the execution of a program begins,
+> and where the program has access to command line arguments.
+
+---
+hideInToc: true
+---
+
+### Main function (cont.)
+
+<br />
+
+> Rust code uses snake case as the conventional style for function and variable names
+
+<br />
+
+```rust {all|4,7-9}
+fn main() {
+    println!("Hello, world!");
+
+    another_function();
+}
+
+fn another_function() {
+    println!("Another function.");
+}
+```
+
+<br />
+
+> Snake case: `let number_of_donuts = 5`  
+> Kebab case: `let number-of-donuts = 5`  
+> Camel case: `let numberOfDonuts = 5`  
+> Pascal case: `let NumberOfDonuts = 5`
+
+---
+
+### Parameters
+
+```rust {all|2,6-9|3,11-14}
+fn main() {
+    another_function(5);
+    print_labeled_measurement(5, 'h');
+}
+
+// Single parameter
+fn another_function(x: i32) {
+    println!("The value of x is: {x}"); // The value of x is: 5
+}
+
+// Multi-parameters
+fn print_labeled_measurement(value: i32, unit_label: char) {
+    println!("The measurement is: {value}{unit_label}"); // The measurement is: 5h
+}
+```
+
+---
+
+### Statements and Expressions
+
+**Statements** are instructions that perform some action and _do not return a value_.  
+**Expressions** evaluate to a _resultant value_.
+
+<br />
+
+```rust {all|3|4}
+fn main() {
+    let y = {
+        let x = 3; // Statement, which set x to 3
+        x + 1 // Expression, which return `x + 1`
+    };
+
+    println!("The value of y is: {y}"); // The value of y is 4
+}
+```
+
+The `x + 1` doesn't have a semicolon at the end of the line, which return the value of `x + 1`.  
+If you add a semicolon at the end of the line, you turn it into a statement, which does not return a value.
+
+---
+
+### Functions with Return values
+
+<br />
+
+```rust
+// Perfectly valid function in Rust
+fn five() -> i32 {
+    5
+}
+```
+
+Another example:
+
+```rust {all|2,5,10|3,6,14}
+fn main() {
+    let x = plus_one(5);
+    let y = plus_two(5); // Error
+
+    println!("The value of x is: {x}"); // `The value of x is: 6`
+    println!("The value of y is: {y}"); // Error
+}
+
+fn plus_one(x: i32) -> i32 {
+    x + 1  // Expression, which return `x + 1` as an i32
+}
+
+fn plus_two(x: i32) -> i32 { // This function requires a return with type i32.
+    x + 2; // Statement, which do not return an i32, and therefore no return value in this function -> Error
+}
+```
+
 ---
 
 ## 2.4 Comments
+
+- Add `//` before your comment
+
+```rust
+// This is a comment
+fn main() {
+    println!("Hello, world"); // This is a comment, too.
+}
+```
 
 ---
 
@@ -337,6 +473,239 @@ fn main() {
 
 ### If experssion
 
+Example:
+
+```rust
+fn main() {
+    let number = 6; // Set number to 6
+
+    if number % 4 == 0 {
+        println!("number is divisible by 4");
+    } else if number % 3 == 0 { // 6 % 3 equal to 0, therefore use this condition
+        println!("number is divisible by 3"); // number is divisible by 3
+    } else if number % 2 == 0 {
+        println!("number is divisible by 2");
+    } else {
+        println!("number is not divisible by 4, 3, or 2");
+    }
+}
+```
+
+---
+hideInToc: true
+---
+
+### If expression (cont.)
+
+Using `if` in `let` statement
+
+```rust
+fn main() {
+    let condition = true;
+    let number = if condition { 5 } else { 6 };
+
+    println!("The value of number is: {number}"); // The value of number is: 5
+}
+```
+
+If the types are mismatched, as in the following example, we’ll get an error.
+
+```rust {all|4}
+fn main() {
+    let condition = true;
+
+    let number = if condition { 5 } else { "six" };
+
+    println!("The value of number is: {number}"); // Error
+}
+```
+
+---
+hideInToc: true
+---
+
+### If expression (cont.)
+
+Error message:
+
+```shell {all|7,9}
+$ cargo run
+   Compiling branches v0.1.0 (file:///projects/branches)
+error[E0308]: `if` and `else` have incompatible types
+ --> src/main.rs:4:44
+  |
+4 |     let number = if condition { 5 } else { "six" };
+  |                                 -          ^^^^^ expected integer, found `&str`
+  |                                 |
+  |                                 expected because of this
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `branches` due to previous error
+```
+
 ---
 
 ### Loop
+
+Rust has three kinds of loops: `loop`, `while`, and `for`.
+
+<Toc listClass="toc" minDepth="4" maxDepth="4" mode="onlyCurrentTree" columns="1" />
+
+---
+
+#### loop
+
+<br />
+
+```rust {all|2|5|4|7|8|12}
+fn main() {
+    let mut counter = 0; // First, set counter to 0.
+
+    let result = loop {
+        counter += 1; // Every loop iteration, counter is incremented by 1.
+
+        if counter == 10 { 
+            break counter * 2; // When counter reaches 10, break with `counter * 2`.
+        }
+    };
+
+    println!("The result is {result}"); // `The result is 20`
+}
+```
+
+---
+hideInToc: true
+---
+
+#### loop (cont.)
+
+- If you have loops within loops, `break` and `continue` apply to the innermost loop at that point. \
+  You can optionally specify a _loop label_ on a loop that you can then use with `break` or `continue` to \
+  specify that those keywords apply to the labeled loop instead of the innermost loop.
+
+- Loop labels must begin with a single quote.
+
+Ex.
+
+```rust
+break 'label
+```
+
+---
+hideInToc: true
+---
+
+#### loop (cont.)
+
+Example:
+
+```rust {all|2|3-5|7-16|15|9-11|18|3-5|7-16|12-14|20|all}
+fn main() {
+    let mut count = 0; // Set count to 0.
+    'counting_up: loop { // label `counting_up`
+        println!("count = {count}");
+        let mut remaining = 10; // Set remaining to 10
+
+        loop {
+            println!("remaining = {remaining}");
+            if remaining == 9 { // When remaining is 9.
+                break; // Doesn't specify a lable, will exit the inner loop only.
+            }
+            if count == 1 {
+                break 'counting_up; // Will exit the outer loop
+            }
+            remaining -= 1; // Every loop iteration will decrece the remaining by 1.
+        }
+
+        count += 1;
+    }
+    println!("End count = {count}"); // `End count = 1`
+}
+```
+
+---
+hideInToc: true
+---
+
+#### loop (cont.)
+
+<br />
+
+```shell
+# Example outout: 
+count = 0       # line 4: `println!("count = {count}");`
+remaining = 10  # line 8: `println!("remaining = {remaining}");`
+remaining = 9   # After one inner loop iteration, print remaining value
+count = 1       # line 4: Print count value after breaking inner loop iteration
+remaining = 10  # line 5: Reset remaining value to 10j
+End count = 1   # line 20: While count value isn't reset, `count = 1` and break outer loop
+```
+
+---
+
+#### while
+
+```rust
+fn main() {
+    let mut number = 3;
+
+    while number != 0 { // When number isn't equal to 0, continue the loop.
+        println!("{number}!"); // Every loop iteration will print number with `!` at the end.
+
+        number -= 1; // Every loop iteration will decrete number by 1.
+    }
+
+    println!("LIFTOFF!!!"); // After loop iteration, print `LIFTOFF!!`
+}
+```
+
+Output:
+
+```shell
+3!
+2!
+1!
+LIFTOFF!!!
+```
+
+---
+
+#### for
+
+```rust
+fn main() {
+    let a = [10, 20, 30, 40, 50];
+
+    for element in a { // Iterate through the element in array a as `element`
+        print!("{element}, "); // 10, 20, 30, 40, 50,
+    }
+
+    //or
+
+    for number in (1..4).rev() { // Iterate through the element from 1 to 4 in reverse order as `number`
+        println!("{number}, "); // 3, 2, 1,
+    }
+}
+```
+
+---
+hideInToc: true
+---
+
+#### for (cont.)
+
+<br />
+
+```rust
+for e in 1..4 { // Only iterate through 1 to 3 
+    println!("{e}, "); // 1, 2, 3,
+}
+```
+
+If you want to iterate through the elements contain start and end, use `..=` instead.
+
+```rust
+for e in 1..=4 {
+    println!("{e}, "); // 1, 2, 3, 4, 
+}
+```

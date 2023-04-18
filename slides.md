@@ -44,7 +44,7 @@ title: Rust
 </div>
 
 <div class="abs-br m-6 flex gap-2">
-  <a href="https://github.com/gnitoahc" target="_blank" alt="GitHub"
+  <a href="https://github.com/gnitoahc/rust-slidev" target="_blank" alt="GitHub"
     class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
     <carbon-logo-github />
   </a>
@@ -69,7 +69,26 @@ hide: false
 ---
 
 ---
+src: ./pages/Chapter3.md
+hide: false
+---
+
+---
 layout: center 
 hideInToc: true
 ---
-# End
+
+<div>
+  <a href="https://github.com/gnitoahc/rust-slidev" target="_blank" alt="GitHub"
+    class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
+    <carbon-logo-github />
+  </a>
+  <a href="mailto:chaotingchen10@gmai1.com" target="_blank" alt="GitHub"
+    class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
+    <carbon-send-filled />
+  </a>
+  <a href="https://www.linkedin.com/in/chaoting-chen/" target="_blank" alt="GitHub"
+    class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
+    <carbon-logo-linkedin />
+  </a>
+</div>
