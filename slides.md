@@ -83,7 +83,7 @@ hideInToc: true
     class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
     <carbon-logo-github />
   </a>
-  <a href="mailto:chaotingchen10@gmai1.com" target="_blank" alt="GitHub"
+  <a href="mailto:chaotingchen10@gmail.com" target="_blank" alt="GitHub"
     class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
     <carbon-send-filled />
   </a>
