@@ -119,7 +119,7 @@ $ cargo build
 Run the project by executing binary
 
 ```shell
-$ . /target/debug/my-app # `. \target\debug\my-app.exe` on Windows
+$ ./target/debug/my-app # `. \target\debug\my-app.exe` on Windows
 Hello, world!
 ```
 
